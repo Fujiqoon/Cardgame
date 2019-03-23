@@ -6,7 +6,7 @@ class Cards:
         'Queen','King','Ace']
     suits=['spade','diamond','heart','club']
     
-    #Cardはsuiteとvalueの2つのパラメーターを持つ
+    #Cardはsuitとvalueの2つのパラメーターを持つinstanseを作る
     def __init__(self,v,s):
         self.value=v
         self.suit=s
@@ -37,12 +37,14 @@ class Cards:
         return v
 
 class Deck():
+	#Deckのinstanseには全てのcardが入る
     def __init__(self):
         self.cards=[]
         for i in range(2,15):
             for j in range(4):
                 self.cards.append(Cards(i,j))
         shuffle(self.cards)
+    #rm_cardはcardリストが0になるまでpopする
     def rm_cards(self):
         if len(self.cards)==0:
             return
@@ -50,18 +52,21 @@ class Deck():
             return self.cards.pop()
 
 class Player():
+	#Playerのinstanseの初期値設定
     def __init__(self,name):
         self.wins=0
         self.cards=None
         self.name=name
 
 class Game():
+	#Game instanseにDeck,Playerのinstanseも呼び出し
     def __init__(self):
         name1=input('Enter player1 name')
         name2=input('Enter player2 name')
         self.deck=Deck()
         self.p1=Player(name1)
         self.p2=Player(name2)
+        
     def wins(self,winner):
         w='{} wins this round'.format(winner)
         print(w)
@@ -74,7 +79,7 @@ class Game():
     def play_game(self):
         cards=self.deck.cards
         print('Begining the war!')
-        while len(cards)>=2:
+        while len(cards)>=2:#2人が引くことができる間
             m='q to quit.Any key to play'
             response=input(m)
             if response=='q':
